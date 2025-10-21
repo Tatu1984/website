@@ -1,0 +1,237 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-background: oklch(0.04 0 0);
+  --color-foreground: oklch(1 0 0);
+  --color-card: oklch(0.1 0 0);
+  --color-card-foreground: oklch(1 0 0);
+  --color-popover: oklch(0.1 0 0);
+  --color-popover-foreground: oklch(1 0 0);
+  --color-primary: oklch(0.7 0.19 35);
+  --color-primary-foreground: oklch(1 0 0);
+  --color-secondary: oklch(0.64 0.18 32);
+  --color-secondary-foreground: oklch(1 0 0);
+  --color-muted: oklch(0.1 0 0);
+  --color-muted-foreground: oklch(0.63 0 0);
+  --color-accent: oklch(0.76 0.15 40);
+  --color-accent-foreground: oklch(0.1 0 0);
+  --color-destructive: oklch(0.6 0.22 25);
+  --color-destructive-foreground: oklch(1 0 0);
+  --color-border: oklch(0.1 0 0);
+  --color-input: oklch(0.1 0 0);
+  --color-ring: oklch(0.7 0.19 35);
+  --radius: 0.5rem;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #FF9966, #FF8547);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #FFB088, #FF9966);
+}
+
+html {
+  scroll-behavior: smooth;
+  cursor: none;
+}
+
+body {
+  cursor: none;
+}
+
+a, button, input, textarea, select {
+  cursor: none !important;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+}
+
+@keyframes liquidFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes liquidFlow {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 40px var(--color-primary);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.twinkle {
+  animation: twinkle 2s infinite ease-in-out;
+}
+
+.bounce {
+  animation: bounce 2s infinite;
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.liquid-float {
+  animation: liquidFloat 4s ease-in-out infinite;
+}
+
+.liquid-flow {
+  animation: liquidFlow 3s ease-in-out infinite;
+}
+
+.fade-in-up {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.slide-in-left {
+  animation: slideInLeft 1s ease-out forwards;
+}
+
+.slide-in-right {
+  animation: slideInRight 1s ease-out forwards;
+}
+
+.scale-in {
+  animation: scaleIn 0.5s ease-out forwards;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #FF9966, #FFB088);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(255, 153, 102, 0.3);
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem !important;
+  }
+  
+  h2 {
+    font-size: 2rem !important;
+  }
+  
+  h3 {
+    font-size: 1.5rem !important;
+  }
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
