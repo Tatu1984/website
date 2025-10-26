@@ -11,7 +11,7 @@ type Mouse = { x: number; y: number; inside: boolean };
 // =============================
 // Reusable component
 // =============================
-export type ParticleLogoProps = {
+type ParticleLogoProps = {
   src: string;              // image URL (can be object URL from <input type="file" />)
   width?: number;           // canvas width in CSS pixels
   height?: number;          // canvas height in CSS pixels
@@ -25,7 +25,7 @@ export type ParticleLogoProps = {
   center?: boolean;         // center image within canvas
 };
 
-export function ParticleLogo({
+function ParticleLogo({
   src,
   width = 900,
   height = 450,
