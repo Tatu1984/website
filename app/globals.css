@@ -3,35 +3,35 @@
 @tailwind utilities;
 
 :root {
-  --color-background: oklch(0.04 0 0);
-  --color-foreground: oklch(1 0 0);
-  --color-card: oklch(0.1 0 0);
-  --color-card-foreground: oklch(1 0 0);
-  --color-popover: oklch(0.1 0 0);
-  --color-popover-foreground: oklch(1 0 0);
-  --color-primary: oklch(0.7 0.19 35);
-  --color-primary-foreground: oklch(1 0 0);
-  --color-secondary: oklch(0.64 0.18 32);
-  --color-secondary-foreground: oklch(1 0 0);
-  --color-muted: oklch(0.1 0 0);
-  --color-muted-foreground: oklch(0.63 0 0);
-  --color-accent: oklch(0.76 0.15 40);
-  --color-accent-foreground: oklch(0.1 0 0);
-  --color-destructive: oklch(0.6 0.22 25);
-  --color-destructive-foreground: oklch(1 0 0);
-  --color-border: oklch(0.1 0 0);
-  --color-input: oklch(0.1 0 0);
-  --color-ring: oklch(0.7 0.19 35);
+  --background: 240 15% 18%;
+  --foreground: 0 0% 100%;
+  --card: 240 15% 20%;
+  --card-foreground: 0 0% 100%;
+  --popover: 240 15% 20%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 35 70% 65%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 32 64% 58%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 240 15% 20%;
+  --muted-foreground: 0 0% 63%;
+  --accent: 40 76% 68%;
+  --accent-foreground: 0 0% 10%;
+  --destructive: 25 60% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 240 15% 25%;
+  --input: 240 15% 20%;
+  --ring: 35 70% 65%;
   --radius: 0.5rem;
 }
 
 * {
-  border-color: var(--color-border);
+  border-color: hsl(var(--border));
 }
 
 body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
   font-feature-settings: "rlig" 1, "calt" 1;
 }
 
@@ -40,7 +40,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #1a1a1f;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -54,15 +54,10 @@ body {
 
 html {
   scroll-behavior: smooth;
-  cursor: none;
 }
 
 body {
-  cursor: none;
-}
-
-a, button, input, textarea, select {
-  cursor: none !important;
+  cursor: default;
 }
 
 @keyframes twinkle {
@@ -111,7 +106,7 @@ a, button, input, textarea, select {
   }
   50% {
     opacity: 1;
-    box-shadow: 0 0 40px var(--color-primary);
+    box-shadow: 0 0 40px hsl(var(--primary));
   }
 }
 
@@ -232,6 +227,27 @@ a, button, input, textarea, select {
 }
 
 *:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid hsl(var(--primary));
   outline-offset: 2px;
+}
+
+/* 3D Transform utilities */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-2000 {
+  perspective: 2000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
 }

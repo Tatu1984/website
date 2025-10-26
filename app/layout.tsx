@@ -3,8 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import ScrollProgress from "@/components/layout/ScrollProgress";
-import CursorFollower from "@/components/effects/CursorFollower";
+// import ScrollProgress from "@/components/layout/ScrollProgress";
+import SplashCursor from "@/components/effects/SplashCursor";
+import BubbleMenu from "@/components/ui/BubbleMenu";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,11 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
-        {/* Custom cursor follower */}
-        <CursorFollower />
+        {/* Splash cursor effect */}
+        <SplashCursor />
 
-        {/* Flowing wave in background - z-index: 0 */}
-        <ScrollProgress />
+        {/* Flowing wave in background - DISABLED */}
+        {/* <ScrollProgress /> */}
+
+        {/* Bubble menu */}
+        <BubbleMenu />
 
         {/* All content on top - z-index: 10 */}
         <div className="relative" style={{ zIndex: 10 }}>

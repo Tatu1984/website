@@ -1,5 +1,5 @@
 import { TEAM } from '@/lib/constants';
-import { Linkedin, Mail } from 'lucide-react';
+import ProfileCard from '@/components/ui/ProfileCard';
 
 export default function TeamPage() {
   return (
@@ -11,63 +11,26 @@ export default function TeamPage() {
             Meet Our Team
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto fade-in-up" style={{ animationDelay: '0.2s' }}>
-            The experts driving innovation and excellence at Infinititech Partners
+            The experts driving innovation and excellence at Infinititech Partners. Click on any card to see contact details!
           </p>
         </div>
       </section>
 
-      {/* Team Grid */}
+      {/* Team Grid with Profile Cards */}
       <section className="py-20 bg-background">
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {TEAM.map((member, idx) => (
-              <div
+              <ProfileCard
                 key={idx}
-                className="text-center p-8 bg-muted/20 rounded-3xl border-2 transition-all hover:shadow-2xl card-hover"
-                style={{
-                  borderColor: `${member.color}30`,
-                }}
-              >
-                {/* Avatar */}
-                <div
-                  className="w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center text-4xl font-extrabold text-white"
-                  style={{
-                    background: `linear-gradient(135deg, ${member.color}, hsl(var(--secondary)))`,
-                    boxShadow: `0 10px 40px ${member.color}40`,
-                  }}
-                >
-                  {member.initial}
-                </div>
-
-                {/* Name */}
-                <h3 className="text-2xl font-bold mb-2">{member.name}</h3>
-
-                {/* Role */}
-                <p className="font-semibold mb-4" style={{ color: member.color }}>
-                  {member.role}
-                </p>
-
-                {/* Bio */}
-                <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  {member.bio}
-                </p>
-
-                {/* Social Links */}
-                <div className="flex gap-3 justify-center">
-                  <button
-                    className="w-10 h-10 rounded-full bg-muted hover:bg-primary/20 flex items-center justify-center transition-all hover:scale-110"
-                    aria-label="LinkedIn"
-                  >
-                    <Linkedin size={18} className="text-foreground hover:text-primary transition-colors" />
-                  </button>
-                  <button
-                    className="w-10 h-10 rounded-full bg-muted hover:bg-primary/20 flex items-center justify-center transition-all hover:scale-110"
-                    aria-label="Email"
-                  >
-                    <Mail size={18} className="text-foreground hover:text-primary transition-colors" />
-                  </button>
-                </div>
-              </div>
+                name={member.name}
+                role={member.role}
+                bio={member.bio}
+                initial={member.initial}
+                color={member.color}
+                email={`${member.name.toLowerCase().replace(' ', '.')}@infinititechpartners.com`}
+                linkedin={`https://linkedin.com/in/${member.name.toLowerCase().replace(' ', '-')}`}
+              />
             ))}
           </div>
         </div>

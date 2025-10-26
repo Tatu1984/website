@@ -1,9 +1,19 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export default function ScrollProgress() {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const pathRef = useRef<SVGPathElement>(null);
+  const [pathLength, setPathLength] = useState(0);
+
+  useEffect(() => {
+    // Calculate path length
+    if (pathRef.current) {
+      const length = pathRef.current.getTotalLength();
+      setPathLength(length);
+    }
+  }, []);
 
   useEffect(() => {
     let ticking = false;
@@ -11,10 +21,15 @@ export default function ScrollProgress() {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-          const currentScroll = window.scrollY;
-          const progress = Math.min(Math.max((currentScroll / totalScroll) * 100, 0), 100);
+          const scrollTop = window.scrollY;
+          const documentHeight = document.documentElement.scrollHeight;
+          const windowHeight = window.innerHeight;
+          const totalScrollable = documentHeight - windowHeight;
+
+          // Calculate smooth progress from 0 to 100
+          const progress = Math.min(Math.max((scrollTop / totalScrollable) * 100, 0), 100);
           setScrollProgress(progress);
+
           ticking = false;
         });
         ticking = true;
@@ -28,31 +43,34 @@ export default function ScrollProgress() {
   }, []);
 
   return (
-    <div 
-      className="fixed top-0 left-8 pointer-events-none z-[1]"
-      style={{ 
-        width: '80px',
-        height: '100vh'
+    <div
+      className="fixed pointer-events-none z-[1]"
+      style={{
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        overflow: 'visible'
       }}
     >
       <svg
-        width="80"
+        width="100%"
         height="100%"
-        viewBox="0 0 80 1000"
+        viewBox="0 0 1920 1080"
         preserveAspectRatio="none"
-        style={{ overflow: 'visible' }}
+        style={{ position: 'absolute', top: 0, left: 0 }}
       >
         <defs>
-          {/* Gradient for the line */}
-          <linearGradient id="scrollGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#FF9966" stopOpacity="0.8" />
+          {/* Orange gradient for the line */}
+          <linearGradient id="scrollGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FF9966" stopOpacity="0.7" />
             <stop offset="50%" stopColor="#FF8547" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#FF6B35" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#FF6B35" stopOpacity="0.7" />
           </linearGradient>
-          
-          {/* Soft glow */}
+
+          {/* Soft glow filter */}
           <filter id="softGlow">
-            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
             <feMerge>
               <feMergeNode in="coloredBlur"/>
               <feMergeNode in="SourceGraphic"/>
@@ -60,58 +78,32 @@ export default function ScrollProgress() {
           </filter>
         </defs>
 
-        {/* Background track - very subtle */}
+        {/* Doodle-style path with large loops going from left to right across the full width and height */}
         <path
-          d="M 40,0 Q 55,125 40,250 Q 25,375 40,500 Q 55,625 40,750 Q 25,875 40,1000"
-          fill="none"
-          stroke="rgba(255, 255, 255, 0.03)"
-          strokeWidth="10"
-          strokeLinecap="round"
-        />
-
-        {/* Main thick wavy progress line */}
-        <path
-          d="M 40,0 Q 55,125 40,250 Q 25,375 40,500 Q 55,625 40,750 Q 25,875 40,1000"
+          ref={pathRef}
+          d="M 100,400
+             C 200,200 300,100 450,300
+             C 550,450 650,600 750,550
+             C 850,500 800,350 700,400
+             C 600,450 650,600 800,700
+             C 950,800 1100,850 1250,700
+             C 1400,550 1450,400 1350,500
+             C 1250,600 1200,750 1350,850
+             C 1500,950 1650,900 1800,750"
           fill="none"
           stroke="url(#scrollGradient)"
-          strokeWidth="10"
+          strokeWidth="12"
           strokeLinecap="round"
+          strokeLinejoin="round"
           filter="url(#softGlow)"
           style={{
-            strokeDasharray: '1000',
-            strokeDashoffset: 1000 - (scrollProgress * 10),
-            transition: 'stroke-dashoffset 0.15s ease-out',
+            strokeDasharray: pathLength,
+            strokeDashoffset: pathLength - (scrollProgress / 100) * pathLength,
+            transition: 'stroke-dashoffset 0.15s linear',
+            opacity: scrollProgress > 0 ? 1 : 0,
           }}
         />
       </svg>
-
-      {/* Glowing dot at scroll position */}
-      <div
-        className="absolute transition-all duration-150 ease-out"
-        style={{
-          left: `${40 + (scrollProgress % 50 < 25 ? (scrollProgress % 50) * 0.6 : (50 - scrollProgress % 50) * 0.6)}px`,
-          top: `${scrollProgress}%`,
-          transform: 'translate(-50%, -50%)',
-        }}
-      >
-        {/* Outer glow */}
-        <div 
-          className="absolute w-6 h-6 rounded-full -left-3 -top-3"
-          style={{
-            background: 'radial-gradient(circle, rgba(255, 153, 102, 0.4) 0%, transparent 70%)',
-            filter: 'blur(4px)',
-          }}
-        />
-        
-        {/* Core dot */}
-        <div 
-          className="w-3 h-3 rounded-full"
-          style={{
-            background: 'linear-gradient(135deg, #FF9966, #FF6B35)',
-            boxShadow: '0 0 12px rgba(255, 153, 102, 0.8), 0 0 24px rgba(255, 107, 53, 0.4)',
-          }}
-        />
-      </div>
     </div>
   );
 }

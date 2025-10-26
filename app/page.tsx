@@ -1,6 +1,8 @@
 import HeroSection from "@/components/home/HeroSection";
-import WorkProcess from "@/components/home/WorkProcess";
+import AboutPreview from "@/components/home/AboutPreview";
 import ServicesPreview from "@/components/home/ServicesPreview";
+import PortfolioPreview from "@/components/home/PortfolioPreview";
+import WorkProcess from "@/components/home/WorkProcess";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -8,9 +10,11 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <WorkProcess />
+      <AboutPreview />
       <ServicesPreview />
-      
+      <PortfolioPreview />
+      <WorkProcess />
+
       {/* CTA Section */}
       <section className="py-32 bg-gradient-to-r from-primary to-secondary text-white">
         <div className="max-w-4xl mx-auto text-center px-8">

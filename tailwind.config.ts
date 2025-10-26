@@ -49,6 +49,13 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      perspective: {
+        '1000': '1000px',
+        '2000': '2000px',
+      },
+      rotate: {
+        'y-180': '180deg',
+      },
     },
   },
   plugins: [],
